@@ -69,6 +69,31 @@ router.get('/:token/:id', (req, res) =>{
 	}
 })
 
+router.get('/add/:token/:name/:value', (req, res) =>{
+	if(req.params.token){
+		Users.findOne({
+			where:{token: req.params.token},
+		})
+		.then((dt)=>{
+			if(dt){
+		Store.create({
+			name: req.params.name,
+			value: req.params.value,
+			token: req.params.token
+		})
+		.then((data => {
+			res.json(data);
+		}))
+		.catch(err=>console.error(err))
+			}else{
+				res.send('Provide correct token at /token/id')
+			}
+		})
+		.catch(err=>console.error(err))
+	}else{
+		res.send('Provide an ID and token at /token/id')
+	}
+})
 router.get('/contact', (req, res) =>{
 	res.send('Contact Us')
 })
