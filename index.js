@@ -10,7 +10,7 @@ require('dotenv').config();
 // app.set('view engine', 'handlebars');
 // app.set('views', './Views');
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 // Set static folder
 app.use(express.static('./public'));

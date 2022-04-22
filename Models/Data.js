@@ -17,10 +17,8 @@ const Store = db.define('data', {
 	// Sequelize options
 	// freezeTableName: true,
 	tableName: 'data',
-	paranoid: true,
 	createdAt: 'createdAt',
-	updatedAt: 'updatedAt',
-	deletedAt: 'deletedAt',
+	updatedAt: 'updatedAt'
 })
 
 module.exports = Store;

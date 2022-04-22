@@ -80,7 +80,7 @@ router.get('/add/:token/:name/:value', (req, res) =>{
 			name: req.params.name,
 			value: req.params.value,
 			token: req.params.token
-		})
+		}, { fields: ['name','value','token']})
 		.then((data => {
 			res.json(data);
 		}))
@@ -93,6 +93,10 @@ router.get('/add/:token/:name/:value', (req, res) =>{
 	}else{
 		res.send('Provide an ID and token at /token/name/value')
 	}
+})
+
+router.post('/add', (req,res)=>{
+	console.log(req.body.token)
 })
 router.get('/contact', (req, res) =>{
 	res.send('Contact Us')
