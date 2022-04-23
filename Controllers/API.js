@@ -96,7 +96,10 @@ router.get('/add/:token/:name/:value', (req, res) =>{
 })
 
 router.post('/add', (req,res)=>{
-	console.log(req.body.token)
+	const name = req.body.name;
+	const value = req.body.value;
+	const token = req.body.token;
+	console.log(token)
 })
 router.get('/contact', (req, res) =>{
 	res.send('Contact Us')
