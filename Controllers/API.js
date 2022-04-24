@@ -45,15 +45,16 @@ router.get('/all/:token', (req, res) =>{
 })
 
 router.get('/:token/:id', (req, res) =>{
-	if(req.params.token){
+	const token = req.header('token')? req.header('token') : req.params.token;
+
+	if(token){
 		Users.findOne({
-			where:{token: req.params.token},
+			where:{token}
 		})
 		.then((dt)=>{
 			if(dt){
 		Store.findOne({
-			where:{id: req.params.id},
-			paranoid: true,
+			where:{id: req.params.id}
 		})
 		.then((data => {
 			res.json(data);
@@ -69,38 +70,36 @@ router.get('/:token/:id', (req, res) =>{
 	}
 })
 
-router.get('/add/:token/:name/:value', (req, res) =>{
-	if(req.params.token){
+router.post('/add', (req,res)=>{
+	const name = req.body.name;
+	const value = req.body.value;
+	const token = req.header('token')? req.header('token') : req.body.token;
+	
+	if(token){
 		Users.findOne({
-			where:{token: req.params.token},
+			where:{token},
 		})
 		.then((dt)=>{
 			if(dt){
 		Store.create({
-			name: req.params.name,
-			value: req.params.value,
-			token: req.params.token
+			name,
+			value,
+			token
 		}, { fields: ['name','value','token']})
 		.then((data => {
 			res.json(data);
 		}))
 		.catch(err=>console.error(err))
 			}else{
-				res.send('Provide correct token at /token/name/value')
+				res.send('Provide correct token')
 			}
 		})
 		.catch(err=>console.error(err))
 	}else{
-		res.send('Provide an ID and token at /token/name/value')
+		res.send('Provide an ID and token')
 	}
 })
 
-router.post('/add', (req,res)=>{
-	const name = req.body.name;
-	const value = req.body.value;
-	const token = req.body.token;
-	console.log(token)
-})
 router.get('/contact', (req, res) =>{
 	res.send('Contact Us')
 })
