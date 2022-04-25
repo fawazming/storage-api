@@ -44,7 +44,7 @@ router.get('/all/:token', (req, res) =>{
 	}
 })
 
-router.get('/:token/:id', (req, res) =>{
+router.get('/:id/:token', (req, res) =>{
 	const token = req.header('token')? req.header('token') : req.params.token;
 
 	if(token){
