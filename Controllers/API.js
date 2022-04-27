@@ -61,12 +61,12 @@ router.get('/:id', (req, res) =>{
 		}))
 		.catch(err=>console.error(err))
 			}else{
-				res.send('Provide correct token at /token/id')
+				res.send('Provide correct token header')
 			}
 		})
 		.catch(err=>console.error(err))
 	}else{
-		res.send('Provide an ID and token at /token/id')
+		res.send('Provide an ID and correct token header')
 	}
 })
 
