@@ -29,18 +29,19 @@ router.get('/delete/:token/:id', (req, res) =>{
 	}
 })
 
-router.get('/all/:token', (req, res) =>{
-	if(req.params.token){
+router.get('/', (req, res) =>{
+	const token = req.header('token');
+
+	if(token){
 		Store.findAll({
-			where:{token: req.params.token},
-			paranoid: true,
+			where:{token}
 		 })
 		.then((data => {
 			res.json(data);
 		}))
 		.catch(err=>console.error(err))
 	}else{
-		res.send('Provide your token at /all/token')
+		res.send('Provide a token header')
 	}
 })
 
