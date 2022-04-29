@@ -29,6 +29,8 @@ router.get('/delete/:token/:id', (req, res) =>{
 	}
 })
 
+//Hey there its April 29, 2022. TGIF Jumah Mubarak! The last friday in Ramadan 1443AH
+
 router.get('/', (req, res) =>{
 	const token = req.header('token');
 
