@@ -4,32 +4,32 @@ const Store = require('../Models/Data');
 const Users = require('../Models/Users');
 
 
-router.get('/delete/:token/:id', (req, res) =>{
-	if(req.params.token){
+router.post('/delete/', (req, res) =>{
+	const token = req.header('token');
+	const id = req.body('id');
+	
+	if(token){
 		Users.findOne({
-			where:{token: req.params.token},
+			where:{token},
 		})
 		.then((dt)=>{
 			if(dt){
 		Store.destroy({
-			where: { id: req.params.id },
-			force: false
+			where: {id}
 		 })
 		.then((data => {
 			res.json(data);
 		}))
 		.catch(err=>console.error(err))
 			}else{
-				res.send('Provide correct token at /token/id')
+				res.send('Provide correct token header')
 			}
 		})
 		.catch(err=>console.error(err))
 	}else{
-		res.send('Provide an ID and token at /token/id')
+		res.send('Provide an ID and a token')
 	}
 })
-
-//Hey there its April 29, 2022. TGIF Jumah Mubarak! The last friday in Ramadan 1443AH
 
 router.get('/', (req, res) =>{
 	const token = req.header('token');
