@@ -4,7 +4,7 @@ const Store = require('../Models/Data');
 const Users = require('../Models/Users');
 
 
-router.post('/delete/', (req, res) =>{
+router.post('/delete', (req, res) =>{
 	const token = req.header('token');
 	const id = req.body('id');
 	
@@ -103,8 +103,5 @@ router.post('/add', (req,res)=>{
 	}
 })
 
-router.get('/contact', (req, res) =>{
-	res.send('Contact Us')
-})
 
 module.exports = router;
