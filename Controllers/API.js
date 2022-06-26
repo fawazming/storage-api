@@ -5,8 +5,8 @@ const Users = require('../Models/Users');
 
 
 router.post('/delete', (req, res) =>{
-	const token = req.header('token');
-	const id = req.body('id');
+	const token = req.header('token')? req.header('token') : req.body.token;
+	const id = req.body.id;
 	
 	if(token){
 		Users.findOne({
@@ -64,7 +64,7 @@ router.get('/:id', (req, res) =>{
 		}))
 		.catch(err=>console.error(err))
 			}else{
-				res.send('Provide correct token header')
+				res.status(501).json({'Error' : 'Wrong Token'})
 			}
 		})
 		.catch(err=>console.error(err))
@@ -99,9 +99,39 @@ router.post('/add', (req,res)=>{
 		})
 		.catch(err=>console.error(err))
 	}else{
-		res.send('Provide an ID and token')
+		res.send('Provide a token')
 	}
 })
 
+router.post('/edit', (req,res)=>{
+	const name = req.body.name ? req.body.name: null;
+	const id = req.body.id;
+	const value = req.body.value ? req.body.value: null;
+	const token = req.header('token')? req.header('token') : req.body.token;
+	
+	if(token){
+		Users.findOne({
+			where:{token},
+		})
+		.then((dt)=>{
+			if(dt){
+		Store.update({
+			name,
+			value,
+			token
+		}, { fields: ['name','value','token'], where: {id} })
+		.then((data => {
+			res.json(data);
+		}))
+		.catch(err=>console.error(err))
+			}else{
+				res.send('Provide correct token')
+			}
+		})
+		.catch(err=>console.error(err))
+	}else{
+		res.send('Provide a token')
+	}
+})
 //Eid Mubarak
 module.exports = router;

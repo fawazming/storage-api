@@ -9,8 +9,8 @@ require('dotenv').config();
 // app.engine('handlebars', hbs.engine());
 // app.set('view engine', 'handlebars');
 // app.set('views', './Views');
-
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 
 // Set static folder
 app.use(express.static('./public'));
